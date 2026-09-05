@@ -29,7 +29,7 @@ export interface Project {
   stack: string[];
   /** the system's real pipeline — the rail under each card */
   lifecycle: LifecycleStep[];
-  /** drop real files at public/work/<slug>/ — the gallery falls back to a placeholder until then */
+  /** drop real files at public/work/<slug>/ — paths are relative so <base href> applies — the gallery falls back to a placeholder until then */
   shots: Shot[];
 }
 
@@ -65,10 +65,10 @@ export const PROJECTS: Project[] = [
       { label: 'AMC billed', done: true },
     ],
     shots: [
-      { src: '/work/ticketdesk/dashboard.png', caption: 'Admin dashboard' },
-      { src: '/work/ticketdesk/amc.png', caption: 'AMC contract lifecycle and scheduling' },
-      { src: '/work/ticketdesk/admin-hub.png', caption: 'Admin hub' },
-      { src: '/work/ticketdesk/ticket-queue.png', caption: 'Ticket queue with live SLA status' },
+      { src: 'work/ticketdesk/dashboard.png', caption: 'Admin dashboard' },
+      { src: 'work/ticketdesk/amc.png', caption: 'AMC contract lifecycle and scheduling' },
+      { src: 'work/ticketdesk/admin-hub.png', caption: 'Admin hub' },
+      { src: 'work/ticketdesk/ticket-queue.png', caption: 'Ticket queue with live SLA status' },
     ],
   },
   {
@@ -101,9 +101,9 @@ export const PROJECTS: Project[] = [
       { label: 'Stock posted', done: true },
     ],
     shots: [
-      { src: '/work/pos-erp/shipment.png', caption: 'Warehouse shipment with invoice coverage' },
-      { src: '/work/pos-erp/Invoice.png', caption: 'Sales invoice raised against a shipment' },
-      { src: '/work/pos-erp/inventory.png', caption: 'FEFO batch picking across returns and orders' },
+      { src: 'work/pos-erp/shipment.png', caption: 'Warehouse shipment with invoice coverage' },
+      { src: 'work/pos-erp/Invoice.png', caption: 'Sales invoice raised against a shipment' },
+      { src: 'work/pos-erp/inventory.png', caption: 'FEFO batch picking across returns and orders' },
     ],
   },
   {
@@ -135,9 +135,9 @@ export const PROJECTS: Project[] = [
       { label: '.NET 10', done: true },
     ],
     shots: [
-      { src: '/work/wms-migration/home.png', caption: 'Home screen' },
-      { src: '/work/wms-migration/picking-menu.png', caption: 'Same business logic, running on .NET 10' },
-      { src: '/work/wms-migration/admin-view.png', caption: 'Quartz scheduler on the async job model' },
+      { src: 'work/wms-migration/home.png', caption: 'Home screen' },
+      { src: 'work/wms-migration/picking-menu.png', caption: 'Same business logic, running on .NET 10' },
+      { src: 'work/wms-migration/admin-view.png', caption: 'Quartz scheduler on the async job model' },
     ],
   },
   {
@@ -173,11 +173,11 @@ export const PROJECTS: Project[] = [
       { label: 'Invoice', done: true },
     ],
     shots: [
-      { src: '/work/integration/module.png', caption: 'Ticket module inside the multi-tenant POS/ERP' },
-      { src: '/work/integration/lead.png', caption: 'Enquiry email parsed into structured product lines' },
-      { src: '/work/integration/quotation.png', caption: 'Quotation → Order conversion with partial fulfillment' },
-      { src: '/work/integration/approval.png', caption: 'Tokenized approval portal, per-line approve/reject' },
-      { src: '/work/integration/tkt-view.png', caption: 'AG-Grid list view — workflow and commercial status' },
+      { src: 'work/integration/module.png', caption: 'Ticket module inside the multi-tenant POS/ERP' },
+      { src: 'work/integration/lead.png', caption: 'Enquiry email parsed into structured product lines' },
+      { src: 'work/integration/quotation.png', caption: 'Quotation → Order conversion with partial fulfillment' },
+      { src: 'work/integration/approval.png', caption: 'Tokenized approval portal, per-line approve/reject' },
+      { src: 'work/integration/tkt-view.png', caption: 'AG-Grid list view — workflow and commercial status' },
     ],
   },
   {
@@ -209,9 +209,9 @@ export const PROJECTS: Project[] = [
       { label: 'Super Admin', done: true },
     ],
     shots: [
-      { src: '/work/vendor-onboarding/form.png', caption: 'Eight-step registration workflow' },
-      { src: '/work/vendor-onboarding/approval.png', caption: 'Admin → Super Admin approval chain' },
-      { src: '/work/vendor-onboarding/timeline.png', caption: 'Vendor self-service status tracking—Submission and approval timeline' },
+      { src: 'work/vendor-onboarding/form.png', caption: 'Eight-step registration workflow' },
+      { src: 'work/vendor-onboarding/approval.png', caption: 'Admin → Super Admin approval chain' },
+      { src: 'work/vendor-onboarding/timeline.png', caption: 'Vendor self-service status tracking—Submission and approval timeline' },
     ],
   },
   {
@@ -241,9 +241,9 @@ export const PROJECTS: Project[] = [
       { label: 'Deduct', done: true },
     ],
     shots: [
-      { src: '/work/eduadmin/dashboard.png', caption: 'Dashboard' },
-      { src: '/work/eduadmin/leave.png', caption: 'Leave workflow with automatic balance deduction' },
-      { src: '/work/eduadmin/students.png', caption: 'Student registration' },
+      { src: 'work/eduadmin/dashboard.png', caption: 'Dashboard' },
+      { src: 'work/eduadmin/leave.png', caption: 'Leave workflow with automatic balance deduction' },
+      { src: 'work/eduadmin/students.png', caption: 'Student registration' },
     ],
   },
 ];

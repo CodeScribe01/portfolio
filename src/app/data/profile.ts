@@ -16,8 +16,8 @@ export const PROFILE = {
   githubHandle: '@CodeScribe01',
   linkedin: 'https://www.linkedin.com/in/nanubanshival/',
   linkedinHandle: '@nanubanshival',
-  cv: '/cv.pdf',
-  portrait: '/me.jpg',
+  cv: 'cv.pdf',
+  portrait: 'me.jpg',
   available: 'Open to full-time software engineering roles',
 } as const;
 
