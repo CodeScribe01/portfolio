@@ -29,6 +29,8 @@ export interface Project {
   stack: string[];
   /** the system's real pipeline — the rail under each card */
   lifecycle: LifecycleStep[];
+  /** public source, where there is any — client work has none */
+  repo?: string;
   /** drop real files at public/work/<slug>/ — paths are relative so <base href> applies — the gallery falls back to a placeholder until then */
   shots: Shot[];
 }
@@ -202,6 +204,7 @@ export const PROJECTS: Project[] = [
       { value: '4', label: 'Document types verified' },
     ],
     stack: ['ASP.NET Core MVC', '.NET 8', 'C#', 'EF Core', 'SQL Server'],
+    repo: 'https://github.com/CodeScribe01/Vendor-Onboarding-System',
     lifecycle: [
       { label: 'Invite', done: true },
       { label: 'Submit', done: true },
@@ -234,6 +237,7 @@ export const PROJECTS: Project[] = [
       { value: '1', label: 'Transaction per class' },
     ],
     stack: ['ASP.NET Core 8 MVC', 'C#', 'EF Core 9', 'SQL Server'],
+    repo: 'https://github.com/CodeScribe01/EduAdmin-Crud-App',
     lifecycle: [
       { label: 'Mark', done: true },
       { label: 'Request', done: true },

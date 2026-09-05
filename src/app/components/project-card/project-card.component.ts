@@ -1,6 +1,7 @@
 import { Component, ChangeDetectionStrategy, input, computed } from '@angular/core';
 import { GalleryComponent } from '../gallery/gallery.component';
 import { Project, STATUS_LABEL, STATUS_CLASS } from '../../data/projects';
+import { BRAND_PATHS } from '../../data/brand-paths';
 
 @Component({
   selector: 'app-project-card',
@@ -14,6 +15,8 @@ export class ProjectCardComponent {
   readonly project = input.required<Project>();
   /** full view shows every highlight, the metric strip and the image gallery */
   readonly detailed = input<boolean>(false);
+
+  protected readonly githubPath = BRAND_PATHS['github'];
 
   protected readonly statusLabel = computed(() => STATUS_LABEL[this.project().status]);
   protected readonly statusClass = computed(() => STATUS_CLASS[this.project().status]);
