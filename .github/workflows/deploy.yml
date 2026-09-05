@@ -28,9 +28,10 @@ jobs:
 
       - run: npm ci
 
-      # served from https://codescribe01.github.io/portfolio-nanu/, so every
-      # asset and router link has to resolve under that sub-path
-      - run: npx ng build --base-href /portfolio-nanu/
+      # A project page is served from /<repo-name>/, so every asset and router
+      # link has to resolve under that sub-path. Taken from the repo name at run
+      # time rather than hard-coded, so renaming the repo cannot break the build.
+      - run: npx ng build --base-href "/${{ github.event.repository.name }}/"
 
       # Pages has no SPA rewrite: it serves 404.html for any unknown path, so
       # handing it index.html makes deep links like /work and /about work
