@@ -1,0 +1,114 @@
+<!-- ============ HERO ============ -->
+<section class="relative overflow-hidden pb-[clamp(2.5rem,6vw,3.5rem)] pt-[clamp(3rem,8vw,6rem)]">
+  <app-flow-canvas />
+
+  <div class="shell relative z-[2]">
+    <span
+      class="inline-flex items-center gap-2.5 rounded-[3px] border border-line-strong bg-surface py-1.5 pl-2.5 pr-3.5
+             font-mono text-[0.76rem] font-medium text-ink-2"
+      appReveal
+    >
+      <span class="dot relative h-[7px] w-[7px] rounded-full bg-ok"></span>
+      {{ profile.available }}
+    </span>
+
+    <h1 class="mt-6 max-w-[15ch] text-d-1" [class.lit]="lit()">
+      @for (word of headline; track $index; let i = $index) {
+        <span class="word inline-block overflow-hidden align-top">
+          <i
+            class="inline-block not-italic"
+            [class.text-navy]="i >= accentFrom"
+            [style.transition-delay.ms]="i * 55"
+          >{{ word }}</i>
+        </span>
+        {{ ' ' }}
+      }
+    </h1>
+
+    <p class="mt-6 max-w-[56ch] text-[clamp(1.05rem,1.7vw,1.18rem)] leading-relaxed text-ink-2" appReveal [delay]="80">
+      I'm Nanu — a software engineer building the platforms businesses run their day on.
+      <strong class="font-semibold text-ink">Service desks, multi-tenant POS/ERP, vendor onboarding.</strong>
+      ASP.NET Core and SQL Server underneath, Angular on top, and most of the care spent where
+      records get validated and approvals change hands.
+    </p>
+
+    <div class="mt-9 flex flex-wrap gap-2.5" appReveal [delay]="160">
+      <a class="btn btn-primary" routerLink="/work">See the work <span class="ar" aria-hidden="true">→</span></a>
+      <a class="btn btn-ghost" [href]="profile.cv" target="_blank" rel="noopener">Download résumé</a>
+    </div>
+  </div>
+</section>
+
+<!-- ============ SOLID PROOF BAND ============ -->
+<section class="bg-navy">
+  <div class="shell">
+    <dl class="grid grid-cols-2 divide-line/20 py-9 md:grid-cols-4 md:divide-x">
+      @for (stat of stats; track stat.caption) {
+        <div class="py-3 md:px-6 md:first:pl-0">
+          <dt
+            class="font-serif text-[clamp(1.75rem,3.4vw,2.4rem)] font-bold tabular-nums text-white"
+            [appCountUp]="stat.count"
+            [suffix]="stat.suffix ?? ''"
+          >{{ stat.value }}</dt>
+          <dd class="mt-1 font-mono text-[0.72rem] uppercase tracking-[0.07em] text-white/65">
+            {{ stat.caption }}
+          </dd>
+        </div>
+      }
+    </dl>
+  </div>
+</section>
+
+<app-tech-row />
+
+<!-- ============ FEATURED WORK ============ -->
+<section class="section">
+  <div class="shell">
+    <div class="mb-[clamp(2rem,4.5vw,3rem)] flex flex-wrap items-end justify-between gap-6" appReveal>
+      <div>
+        <span class="eyebrow">Selected work</span>
+        <h2 class="h-section">Three systems running against live data.</h2>
+      </div>
+      <a class="btn btn-ghost btn-sm" routerLink="/work">
+        All six projects <span class="ar" aria-hidden="true">→</span>
+      </a>
+    </div>
+
+    <div class="flex flex-col gap-[clamp(1rem,2.5vw,1.5rem)]">
+      @for (project of featured; track project.slug) {
+        <app-project-card [project]="project" appReveal />
+      }
+    </div>
+  </div>
+</section>
+
+<!-- ============ ABOUT TEASER ============ -->
+<section class="section">
+  <div class="shell grid grid-cols-1 gap-[clamp(1.75rem,5vw,3.5rem)] md:grid-cols-[minmax(0,1.25fr)_minmax(0,1fr)]">
+    <div appReveal>
+      <span class="eyebrow">About</span>
+      <h2 class="h-section">Nine months in, and already deep in production code.</h2>
+      <p class="mt-5 max-w-prose leading-relaxed text-ink-2">{{ summary }}</p>
+      <a class="btn btn-ghost btn-sm mt-7" routerLink="/about">
+        Full background <span class="ar" aria-hidden="true">→</span>
+      </a>
+    </div>
+
+    <div class="card p-6" appReveal [delay]="100">
+      <div class="font-mono text-[0.71rem] font-semibold uppercase tracking-[0.09em] text-acc">Currently</div>
+      <h3 class="mt-2.5 font-serif text-[1.2rem] font-bold">{{ currentRole.title }}</h3>
+      <p class="mt-1 text-[0.96rem] font-semibold text-ink-2">{{ currentRole.org }}</p>
+      <p class="mt-0.5 font-mono text-[0.76rem] tabular-nums text-ink-3">{{ currentRole.period }}</p>
+      <p class="mt-4 text-[0.94rem] leading-relaxed text-ink-2">{{ currentRole.blurb }}</p>
+      <div class="mt-5 border-t border-line pt-4">
+        <div class="font-mono text-[0.69rem] font-semibold uppercase tracking-[0.09em] text-ink-3">Education</div>
+        <p class="mt-1.5 text-[0.94rem] text-ink-2">B.Tech CSE — RTU Kota, 2025</p>
+        <p class="mt-1.5 inline-block rounded-[3px] bg-navy px-2 py-0.5 text-[0.85rem] font-semibold text-white">
+          Qualified GATE 2026
+        </p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<app-cta-panel />

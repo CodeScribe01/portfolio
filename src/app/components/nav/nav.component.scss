@@ -1,0 +1,81 @@
+/* the host is what sticks: a sticky child can only travel inside its parent's
+   box, and this host is exactly the header's height. */
+:host {
+  display: block;
+  position: sticky;
+  top: 0;
+  z-index: 50;
+}
+
+/* solid underline, wipes in from the left */
+.nav-link::after {
+  content: '';
+  position: absolute;
+  left: 0;
+  bottom: -2px;
+  height: 2px;
+  width: 100%;
+  background: #172e6e;
+  transform: scaleX(0);
+  transform-origin: right;
+  transition: transform 0.28s cubic-bezier(0.2, 0.8, 0.2, 1);
+}
+
+.nav-link:hover {
+  color: #12141a;
+}
+
+.nav-link:hover::after,
+.nav-link.is-active::after {
+  transform: scaleX(1);
+  transform-origin: left;
+}
+
+.nav-link.is-active {
+  color: #172e6e;
+  font-weight: 600;
+}
+
+/* hamburger → close */
+.burger {
+  position: relative;
+  display: block;
+  width: 17px;
+  height: 11px;
+
+  span {
+    position: absolute;
+    left: 0;
+    height: 2px;
+    width: 100%;
+    background: #12141a;
+    transition:
+      transform 0.3s cubic-bezier(0.2, 0.8, 0.2, 1),
+      top 0.2s ease;
+  }
+
+  span:first-child {
+    top: 0;
+  }
+
+  span:last-child {
+    top: 9px;
+  }
+
+  &.is-open span:first-child {
+    top: 4.5px;
+    transform: rotate(45deg);
+  }
+
+  &.is-open span:last-child {
+    top: 4.5px;
+    transform: rotate(-45deg);
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .nav-link::after,
+  .burger span {
+    transition: none;
+  }
+}

@@ -1,0 +1,168 @@
+<section class="section pb-0">
+  <div class="shell grid grid-cols-1 gap-[clamp(1.75rem,5vw,3.5rem)] md:grid-cols-[minmax(0,1.5fr)_minmax(0,1fr)]">
+    <div>
+      <span class="eyebrow" appReveal>About</span>
+      <h1 class="mt-4 max-w-[18ch] text-d-1" appReveal [delay]="60">
+        I build the unglamorous parts that everything depends on.
+      </h1>
+      <p class="mt-6 max-w-[58ch] text-[clamp(1.02rem,1.6vw,1.14rem)] leading-relaxed text-ink-2" appReveal [delay]="120">
+        {{ summary }}
+      </p>
+      <p class="mt-4 max-w-[58ch] leading-relaxed text-ink-2" appReveal [delay]="160">
+        I graduated from RTU Kota in 2025, qualified GATE 2026 in Computer Science &amp; IT, and spent
+        the first part of my career on systems where being roughly right isn't good enough — a stock
+        deduction that fires twice or an approval that skips a level is a real problem for a real
+        business. That's the work I want more of.
+      </p>
+    </div>
+
+    <!-- portrait -->
+    <div appReveal [delay]="100">
+      <div class="overflow-hidden rounded-lg border border-line-strong bg-bg-alt">
+        @if (noPortrait()) {
+          <div class="flex aspect-[4/5] w-full flex-col items-center justify-center gap-3 bg-navy text-white">
+            <span class="font-serif text-[3.5rem] font-bold leading-none">NB</span>
+            <span class="font-mono text-[0.68rem] uppercase tracking-[0.12em] text-white/60">public/me.jpg</span>
+          </div>
+        } @else {
+          <img
+            [src]="profile.portrait"
+            [alt]="profile.name"
+            class="aspect-[4/5] w-full object-cover"
+            (error)="noPortrait.set(true)"
+          />
+        }
+      </div>
+      <p class="mt-2.5 text-[0.85rem] text-ink-3">{{ profile.name }} — {{ profile.location }}</p>
+    </div>
+  </div>
+</section>
+
+<!-- ============ EXPERIENCE ============ -->
+<section class="section">
+  <div class="shell">
+    <div class="mb-[clamp(2rem,4.5vw,3rem)]" appReveal>
+      <span class="eyebrow">Experience</span>
+      <h2 class="h-section">Where the production work happened.</h2>
+    </div>
+
+    <div class="flex flex-col">
+      @for (role of roles; track role.title + role.period) {
+        <div class="job relative border-l-2 border-line py-7 pl-7" [class.now]="role.current" appReveal>
+          <div class="flex flex-wrap items-baseline justify-between gap-x-6 gap-y-1">
+            <h3 class="font-serif text-[1.2rem] font-bold">
+              {{ role.title }}
+              <span class="font-sans text-[1.02rem] font-semibold text-ink-2">· {{ role.org }}</span>
+            </h3>
+            <span class="whitespace-nowrap font-mono text-[0.76rem] tabular-nums text-ink-3">{{ role.period }}</span>
+          </div>
+
+          <div class="mt-2 flex flex-wrap items-center gap-1.5">
+            <span class="rounded-[3px] border border-navy bg-navy px-2 py-0.5 font-mono text-[0.66rem] font-semibold uppercase tracking-[0.07em] text-white">
+              {{ role.employmentType }}
+            </span>
+            <span class="rounded-[3px] border border-line-strong bg-bg-alt px-2 py-0.5 font-mono text-[0.66rem] font-semibold uppercase tracking-[0.07em] text-ink-2">
+              {{ role.workMode }}
+            </span>
+            <span class="font-mono text-[0.72rem] uppercase tracking-[0.06em] text-ink-3">{{ role.location }}</span>
+          </div>
+
+          @if (role.blurb) {
+            <p class="mt-3 max-w-prose text-[0.96rem] leading-relaxed text-ink-2">{{ role.blurb }}</p>
+          }
+
+          <ul class="mt-4 flex flex-col gap-2">
+            @for (point of role.points; track point) {
+              <li class="relative max-w-[64ch] pl-4 text-[0.95rem] leading-relaxed text-ink-2">
+                <span class="absolute left-0 top-[0.72em] h-[2px] w-2 bg-acc"></span>
+                {{ point }}
+              </li>
+            }
+          </ul>
+        </div>
+      }
+    </div>
+  </div>
+</section>
+
+<!-- ============ SKILLS ============ -->
+<section class="section section-alt">
+  <div class="shell">
+    <div class="mb-[clamp(2rem,4.5vw,3rem)]" appReveal>
+      <span class="eyebrow">Stack</span>
+      <h2 class="h-section">What I reach for.</h2>
+    </div>
+
+    <div class="grid grid-cols-1 gap-3.5 sm:grid-cols-2 lg:grid-cols-3">
+      @for (group of groups; track group.title; let i = $index) {
+        <div class="card p-5" appReveal [delay]="i * 60">
+          <h3 class="border-b-2 border-navy pb-2 font-mono text-[0.71rem] font-semibold uppercase tracking-[0.09em] text-navy">
+            {{ group.title }}
+          </h3>
+          <ul class="mt-3.5 flex flex-wrap gap-1.5">
+            @for (item of group.items; track item) {
+              <li class="rounded-[3px] border border-line bg-bg-alt px-2 py-1 text-[0.86rem] text-ink-2">
+                {{ item }}
+              </li>
+            }
+          </ul>
+        </div>
+      }
+    </div>
+  </div>
+</section>
+
+<!-- ============ EDUCATION ============ -->
+<section class="section">
+  <div class="shell">
+    <div class="mb-[clamp(2rem,4.5vw,3rem)]" appReveal>
+      <span class="eyebrow">Education</span>
+      <h2 class="h-section">Where I studied.</h2>
+    </div>
+
+    <div class="flex flex-col gap-3.5">
+      @for (item of education; track item.qualification) {
+        @if (item.primary) {
+          <div class="card border-l-4 border-l-navy p-6 md:p-7" appReveal>
+            <div class="flex flex-wrap items-baseline justify-between gap-x-6 gap-y-1">
+              <h3 class="font-serif text-[1.35rem] font-bold">{{ item.qualification }}</h3>
+              <span class="whitespace-nowrap font-mono text-[0.78rem] tabular-nums text-ink-3">{{ item.period }}</span>
+            </div>
+            <p class="mt-1.5 text-[1rem] font-semibold text-ink-2">{{ item.institution }}</p>
+            <p class="mt-0.5 font-mono text-[0.72rem] uppercase tracking-[0.06em] text-ink-3">
+              {{ item.affiliation }} · {{ item.location }}
+            </p>
+            @if (item.notes.length) {
+              <ul class="mt-4 flex flex-wrap gap-2">
+                @for (note of item.notes; track note) {
+                  <li class="rounded-[3px] border border-line-strong bg-bg-alt px-2.5 py-1 text-[0.89rem] font-medium text-ink-2">
+                    {{ note }}
+                  </li>
+                }
+              </ul>
+            }
+          </div>
+        }
+      }
+
+      <div class="grid grid-cols-1 gap-3.5 sm:grid-cols-2">
+        @for (item of education; track item.qualification; let i = $index) {
+          @if (!item.primary) {
+            <div class="card p-5" appReveal [delay]="i * 60">
+              <div class="flex flex-wrap items-baseline justify-between gap-x-4 gap-y-1">
+                <h3 class="font-serif text-[1.08rem] font-bold">{{ item.qualification }}</h3>
+                <span class="whitespace-nowrap font-mono text-[0.74rem] tabular-nums text-ink-3">{{ item.period }}</span>
+              </div>
+              <p class="mt-1.5 text-[0.94rem] font-semibold text-ink-2">{{ item.institution }}</p>
+              <p class="mt-0.5 font-mono text-[0.7rem] uppercase tracking-[0.06em] text-ink-3">
+                {{ item.affiliation }} · {{ item.location }}
+              </p>
+            </div>
+          }
+        }
+      </div>
+    </div>
+  </div>
+</section>
+
+<app-cta-panel />

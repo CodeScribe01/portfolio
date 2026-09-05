@@ -1,0 +1,124 @@
+:host {
+  display: block;
+}
+
+.dot::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  border-radius: 50%;
+  background: #0e7c5a;
+  animation: ring 2.6s ease-out infinite;
+}
+
+@keyframes ring {
+  0% {
+    transform: scale(1);
+    opacity: 0.5;
+  }
+  70%,
+  100% {
+    transform: scale(2.8);
+    opacity: 0;
+  }
+}
+
+.channel {
+  .arrow {
+    transition:
+      transform 0.2s cubic-bezier(0.2, 0.8, 0.2, 1),
+      color 0.2s;
+  }
+
+  &:hover {
+    background: #e8ecfb;
+    border-color: #172e6e;
+  }
+
+  &:hover .arrow {
+    color: #172e6e;
+    transform: translateX(3px);
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .dot::after {
+    animation: none;
+  }
+
+  .channel .arrow {
+    transition: none;
+  }
+
+  .channel:hover .arrow {
+    transform: none;
+  }
+}
+
+/* ---------- form ---------- */
+.field {
+  display: flex;
+  flex-direction: column;
+  gap: 0.4rem;
+}
+
+.label {
+  font-family: 'Source Code Pro', ui-monospace, monospace;
+  font-size: 0.69rem;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.09em;
+  color: #6a7180;
+}
+
+.control {
+  width: 100%;
+  border: 1px solid #c4cad8;
+  border-radius: 4px;
+  background: #ffffff;
+  padding: 0.62rem 0.8rem;
+  font-family: inherit;
+  font-size: 0.96rem;
+  color: #12141a;
+  transition:
+    border-color 0.2s cubic-bezier(0.2, 0.8, 0.2, 1),
+    background 0.2s;
+
+  &::placeholder {
+    color: #9aa1b0;
+  }
+
+  &:hover {
+    border-color: #6a7180;
+  }
+
+  &:focus {
+    outline: none;
+    border-color: #2b4bd8;
+    box-shadow: 0 0 0 3px rgba(43, 75, 216, 0.15);
+  }
+
+  &.invalid {
+    border-color: #b45309;
+  }
+
+  &.invalid:focus {
+    box-shadow: 0 0 0 3px rgba(180, 83, 9, 0.15);
+  }
+}
+
+.err {
+  font-size: 0.83rem;
+  color: #b45309;
+}
+
+.btn[disabled] {
+  opacity: 0.6;
+  cursor: not-allowed;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .control {
+    transition: none;
+  }
+}

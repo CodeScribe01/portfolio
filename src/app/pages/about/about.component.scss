@@ -1,0 +1,26 @@
+:host {
+  display: block;
+}
+
+.job {
+  &::before {
+    content: '';
+    position: absolute;
+    left: -7px;
+    top: 2.4rem;
+    width: 12px;
+    height: 12px;
+    border-radius: 2px;
+    background: #ffffff;
+    border: 2px solid #c4cad8;
+  }
+
+  &.now::before {
+    background: #172e6e;
+    border-color: #172e6e;
+  }
+
+  &:last-child {
+    padding-bottom: 0;
+  }
+}

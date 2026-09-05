@@ -1,0 +1,25 @@
+<section class="section pt-0">
+  <div class="shell">
+    <div class="rounded-lg bg-navy p-[clamp(1.75rem,5vw,3.25rem)] text-white" appReveal>
+      <h2 class="max-w-[18ch] text-d-2">Hiring, or want to talk through a problem?</h2>
+      <p class="mt-4 max-w-[46ch] leading-relaxed text-white/75">
+        Email is fastest — I read everything and usually reply the same day.
+      </p>
+
+      <div class="mt-8 flex flex-wrap gap-2.5">
+        <a
+          class="btn border-white bg-white text-navy hover:border-navy-soft hover:bg-navy-soft"
+          [href]="'mailto:' + profile.email"
+        >
+          Email me <span class="ar" aria-hidden="true">→</span>
+        </a>
+        <a
+          class="btn border-white/35 bg-navy text-white hover:border-white hover:bg-navy-deep"
+          routerLink="/contact"
+        >
+          All contact details
+        </a>
+      </div>
+    </div>
+  </div>
+</section>

@@ -1,0 +1,173 @@
+<section class="section">
+  <div class="shell grid grid-cols-1 gap-[clamp(2rem,5vw,4rem)] md:grid-cols-[minmax(0,1fr)_minmax(0,1.15fr)]">
+    <!-- intro -->
+    <div>
+      <span class="eyebrow" appReveal>Contact</span>
+      <h1 class="mt-4 max-w-[14ch] text-d-1" appReveal [delay]="60">Let's talk.</h1>
+      <p class="mt-6 max-w-[46ch] text-[clamp(1rem,1.6vw,1.12rem)] leading-relaxed text-ink-2" appReveal [delay]="120">
+        I'm open to full-time software engineering roles — backend or full-stack, .NET and Angular.
+        Happy to talk through a problem you're stuck on either way.
+      </p>
+
+      <div
+        class="mt-8 inline-flex items-center gap-2.5 rounded-[3px] border border-line-strong bg-surface py-1.5 pl-2.5 pr-3.5
+               font-mono text-[0.76rem] font-medium text-ink-2"
+        appReveal
+        [delay]="180"
+      >
+        <span class="dot relative h-[7px] w-[7px] rounded-full bg-ok"></span>
+        {{ profile.available }}
+      </div>
+
+      <dl class="mt-10 flex flex-col gap-5 border-t border-line pt-6" appReveal [delay]="240">
+        <div>
+          <dt class="font-mono text-[0.69rem] font-semibold uppercase tracking-[0.09em] text-ink-3">Based in</dt>
+          <dd class="mt-1 text-[0.95rem] text-ink-2">{{ profile.location }}</dd>
+        </div>
+        <div>
+          <dt class="font-mono text-[0.69rem] font-semibold uppercase tracking-[0.09em] text-ink-3">Time zone</dt>
+          <dd class="mt-1 text-[0.95rem] text-ink-2">IST (UTC+5:30) — comfortable with remote teams</dd>
+        </div>
+      </dl>
+    </div>
+
+    <!-- message form -->
+    <div class="card p-6 md:p-7" appReveal [delay]="100">
+      @if (state() === 'sent') {
+        <div class="flex flex-col items-start gap-4 py-6" role="status" aria-live="polite">
+          <span class="flex h-11 w-11 items-center justify-center rounded-full bg-ok text-[1.25rem] text-white" aria-hidden="true">✓</span>
+          <div>
+            <h2 class="font-serif text-[1.35rem] font-bold">Message sent.</h2>
+            <p class="mt-2 max-w-[38ch] leading-relaxed text-ink-2">
+              Thanks — it's landed in my inbox and I'll usually reply the same day.
+            </p>
+          </div>
+          <button type="button" class="btn btn-ghost btn-sm" (click)="reset()">Send another</button>
+        </div>
+      } @else {
+        <h2 class="font-serif text-[1.35rem] font-bold">Send me a message</h2>
+        <p class="mt-1.5 text-[0.92rem] text-ink-3">It goes straight to my inbox.</p>
+
+        <form class="mt-6 flex flex-col gap-4" (submit)="submit($event)" novalidate>
+          <!-- honeypot: hidden from people, tempting to bots -->
+          <div class="hidden" aria-hidden="true">
+            <label for="botcheck">Leave this field empty</label>
+            <input
+              id="botcheck"
+              type="text"
+              tabindex="-1"
+              autocomplete="off"
+              [ngModel]="botcheck()"
+              (ngModelChange)="botcheck.set($event)"
+              name="botcheck"
+            />
+          </div>
+
+          <div class="field">
+            <label class="label" for="cf-name">Your name</label>
+            <input
+              id="cf-name"
+              class="control"
+              type="text"
+              autocomplete="name"
+              [class.invalid]="nameError()"
+              [attr.aria-invalid]="nameError() ? 'true' : null"
+              [attr.aria-describedby]="nameError() ? 'cf-name-err' : null"
+              [ngModel]="name()"
+              (ngModelChange)="name.set($event)"
+              name="name"
+            />
+            @if (nameError()) {
+              <p class="err" id="cf-name-err">{{ nameError() }}</p>
+            }
+          </div>
+
+          <div class="field">
+            <label class="label" for="cf-email">Your email</label>
+            <input
+              id="cf-email"
+              class="control"
+              type="email"
+              autocomplete="email"
+              [class.invalid]="emailError()"
+              [attr.aria-invalid]="emailError() ? 'true' : null"
+              [attr.aria-describedby]="emailError() ? 'cf-email-err' : null"
+              [ngModel]="email()"
+              (ngModelChange)="email.set($event)"
+              name="email"
+            />
+            @if (emailError()) {
+              <p class="err" id="cf-email-err">{{ emailError() }}</p>
+            }
+          </div>
+
+          <div class="field">
+            <label class="label" for="cf-message">Message</label>
+            <textarea
+              id="cf-message"
+              class="control min-h-[8rem] resize-y"
+              rows="5"
+              [class.invalid]="messageError()"
+              [attr.aria-invalid]="messageError() ? 'true' : null"
+              [attr.aria-describedby]="messageError() ? 'cf-message-err' : null"
+              [ngModel]="message()"
+              (ngModelChange)="message.set($event)"
+              name="message"
+            ></textarea>
+            @if (messageError()) {
+              <p class="err" id="cf-message-err">{{ messageError() }}</p>
+            }
+          </div>
+
+          @if (state() === 'error') {
+            <p class="rounded-[3px] border border-warn bg-warn/10 px-3 py-2 text-[0.88rem] text-warn" role="alert">
+              {{ errorText() }} You can also email me directly at
+              <a class="font-semibold underline" [href]="'mailto:' + profile.email">{{ profile.email }}</a>.
+            </p>
+          }
+
+          <div class="mt-1 flex flex-wrap items-center gap-3">
+            <button type="submit" class="btn btn-primary" [disabled]="state() === 'sending'">
+              @if (state() === 'sending') {
+                Sending…
+              } @else {
+                Send message <span class="ar" aria-hidden="true">→</span>
+              }
+            </button>
+            <span class="text-[0.82rem] text-ink-3">I'll only use your email to reply.</span>
+          </div>
+        </form>
+      }
+    </div>
+  </div>
+</section>
+
+<!-- direct channels -->
+<section class="section section-alt pt-[clamp(2.5rem,5vw,3.5rem)]">
+  <div class="shell">
+    <div class="mb-7" appReveal>
+      <span class="eyebrow">Elsewhere</span>
+      <h2 class="h-section">Or reach me directly.</h2>
+    </div>
+
+    <div class="grid grid-cols-1 gap-2.5 sm:grid-cols-2">
+      @for (channel of channels; track channel.key) {
+        <a
+          class="channel card flex items-center justify-between gap-4 p-5"
+          [href]="channel.href"
+          [attr.target]="channel.external ? '_blank' : null"
+          [attr.rel]="channel.external ? 'noopener' : null"
+          appReveal
+          [delay]="$index * 60"
+        >
+          <span class="min-w-0">
+            <span class="block font-mono text-[0.69rem] font-semibold uppercase tracking-[0.09em] text-acc">{{ channel.key }}</span>
+            <span class="mt-1 block break-all font-serif text-[1.1rem] font-bold">{{ channel.value }}</span>
+            <span class="mt-0.5 block text-[0.85rem] text-ink-3">{{ channel.note }}</span>
+          </span>
+          <span class="arrow shrink-0 text-ink-3" aria-hidden="true">{{ channel.external ? '↗' : '→' }}</span>
+        </a>
+      }
+    </div>
+  </div>
+</section>

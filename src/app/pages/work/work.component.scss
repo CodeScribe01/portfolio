@@ -1,0 +1,51 @@
+:host {
+  display: block;
+}
+
+.filter-chip {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+  border-radius: 4px;
+  border: 1px solid #c4cad8;
+  background: #ffffff;
+  padding: 0.5rem 1rem;
+  font-size: 0.9rem;
+  font-weight: 600;
+  color: #454b58;
+  cursor: pointer;
+  transition:
+    border-color 0.2s cubic-bezier(0.2, 0.8, 0.2, 1),
+    color 0.2s,
+    background 0.2s;
+
+  .count {
+    font-family: 'Source Code Pro', ui-monospace, monospace;
+    font-size: 0.72rem;
+    font-weight: 500;
+    color: #6a7180;
+    font-variant-numeric: tabular-nums;
+  }
+
+  &:hover {
+    border-color: #172e6e;
+    background: #e8ecfb;
+    color: #172e6e;
+  }
+
+  &.is-active {
+    background: #172e6e;
+    border-color: #172e6e;
+    color: #ffffff;
+
+    .count {
+      color: rgba(255, 255, 255, 0.7);
+    }
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .filter-chip {
+    transition: none;
+  }
+}

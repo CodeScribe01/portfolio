@@ -1,0 +1,167 @@
+<figure class="m-0">
+  <!-- main view -->
+  <button
+    type="button"
+    class="view block w-full overflow-hidden rounded-md border border-line-strong bg-bg-alt"
+    [class.cursor-zoom-in]="!compact()"
+    [class.cursor-default]="compact()"
+    [attr.aria-label]="compact() ? null : 'Open ' + name() + ' screenshots full size'"
+    [attr.tabindex]="compact() ? -1 : 0"
+    (click)="open()"
+  >
+    @if (isMissing(active())) {
+      <ng-container [ngTemplateOutlet]="placeholder" />
+    } @else {
+      <img
+        [src]="current().src"
+        [alt]="current().caption"
+        loading="lazy"
+        decoding="async"
+        class="aspect-[16/10] w-full object-cover object-top"
+        (error)="onError(active())"
+      />
+    }
+  </button>
+
+  <figcaption class="mt-2.5 flex items-baseline justify-between gap-3">
+    <span class="text-[0.86rem] text-ink-2">{{ current().caption }}</span>
+    @if (hasMany()) {
+      <span class="shrink-0 font-mono text-[0.72rem] tabular-nums text-ink-3">
+        {{ active() + 1 }} / {{ total() }}
+      </span>
+    }
+  </figcaption>
+
+  <!-- thumbnails -->
+  @if (hasMany()) {
+    <div class="mt-3 flex flex-wrap gap-2" role="tablist" [attr.aria-label]="name() + ' screenshots'">
+      @for (shot of shots(); track shot.src; let i = $index) {
+        <button
+          type="button"
+          role="tab"
+          class="thumb h-14 w-20 shrink-0 overflow-hidden rounded-[3px] border-2 bg-bg-alt"
+          [class.border-navy]="active() === i"
+          [class.border-line]="active() !== i"
+          [attr.aria-selected]="active() === i"
+          [attr.aria-label]="shot.caption"
+          (click)="select(i)"
+        >
+          @if (isMissing(i)) {
+            <span class="flex h-full w-full items-center justify-center bg-bg-alt font-mono text-[0.6rem] text-ink-3">
+              {{ i + 1 }}
+            </span>
+          } @else {
+            <img
+              [src]="shot.src"
+              alt=""
+              loading="lazy"
+              decoding="async"
+              class="h-full w-full object-cover object-top"
+              (error)="onError(i)"
+            />
+          }
+        </button>
+      }
+    </div>
+  }
+</figure>
+
+<!-- lightbox -->
+@if (lightbox()) {
+  <div
+    class="fixed inset-0 z-[120] flex flex-col bg-ink"
+    role="dialog"
+    aria-modal="true"
+    [attr.aria-label]="name() + ' screenshots'"
+  >
+    <div class="flex items-center justify-between gap-4 border-b border-white/15 px-4 py-3">
+      <span class="min-w-0 truncate text-[0.9rem] font-semibold text-white">{{ name() }}</span>
+      <span class="shrink-0 font-mono text-[0.75rem] tabular-nums text-white/60">
+        {{ active() + 1 }} / {{ total() }}
+      </span>
+      <button
+        type="button"
+        class="shrink-0 rounded border border-white/25 px-3 py-1.5 font-mono text-[0.72rem] uppercase tracking-wider text-white hover:bg-white/10"
+        (click)="close()"
+      >
+        Close
+      </button>
+    </div>
+
+    <div class="relative flex min-h-0 flex-1 items-center justify-center p-4">
+      @if (isMissing(active())) {
+        <div class="w-full max-w-3xl"><ng-container [ngTemplateOutlet]="placeholder" /></div>
+      } @else {
+        <img
+          [src]="current().src"
+          [alt]="current().caption"
+          class="max-h-full max-w-full object-contain"
+          (error)="onError(active())"
+        />
+      }
+
+      @if (total() > 1) {
+        <button
+          type="button"
+          class="nav-btn left-3"
+          aria-label="Previous screenshot"
+          (click)="step(-1)"
+        >‹</button>
+        <button
+          type="button"
+          class="nav-btn right-3"
+          aria-label="Next screenshot"
+          (click)="step(1)"
+        >›</button>
+      }
+    </div>
+
+    <p class="border-t border-white/15 px-4 py-3 text-center text-[0.88rem] text-white/75">
+      {{ current().caption }}
+    </p>
+  </div>
+}
+
+<!-- placeholder used until a real file exists at the shot's path -->
+<ng-template #placeholder>
+  <div class="relative">
+    <svg viewBox="0 0 400 250" preserveAspectRatio="none" class="aspect-[16/10] w-full" role="img" [attr.aria-label]="current().caption">
+      <rect width="400" height="250" fill="#FFFFFF" />
+      <rect width="400" height="30" fill="#f2f5fa" />
+      <rect y="29" width="400" height="1" fill="#dfe2ea" />
+      <circle cx="16" cy="15" r="3.4" fill="#c4cad8" />
+      <circle cx="29" cy="15" r="3.4" fill="#c4cad8" />
+      <circle cx="42" cy="15" r="3.4" fill="#c4cad8" />
+      <rect x="62" y="10" width="120" height="10" rx="2" fill="#e6eaf2" />
+      <rect x="0" y="30" width="86" height="220" fill="#f2f5fa" />
+      <rect x="85" y="30" width="1" height="220" fill="#dfe2ea" />
+      <rect x="14" y="48" width="52" height="7" rx="1" fill="#2B4BD8" />
+      <rect x="14" y="66" width="44" height="7" rx="1" fill="#d6dbe6" />
+      <rect x="14" y="84" width="50" height="7" rx="1" fill="#d6dbe6" />
+      <rect x="14" y="102" width="38" height="7" rx="1" fill="#d6dbe6" />
+      <rect x="102" y="48" width="110" height="12" rx="2" fill="#c4cad8" />
+      <rect x="102" y="74" width="128" height="52" rx="3" fill="#FFFFFF" stroke="#dfe2ea" />
+      <rect x="242" y="74" width="128" height="52" rx="3" fill="#FFFFFF" stroke="#dfe2ea" />
+      <rect x="114" y="88" width="46" height="6" rx="1" fill="#c4cad8" />
+      <rect x="114" y="102" width="66" height="12" rx="2" fill="#172E6E" />
+      <rect x="254" y="88" width="46" height="6" rx="1" fill="#c4cad8" />
+      <rect x="254" y="102" width="40" height="12" rx="2" fill="#0E7C5A" />
+      <rect x="102" y="142" width="268" height="1" fill="#dfe2ea" />
+      <rect x="102" y="154" width="60" height="7" rx="1" fill="#d6dbe6" />
+      <rect x="184" y="154" width="80" height="7" rx="1" fill="#d6dbe6" />
+      <rect x="286" y="154" width="34" height="7" rx="1" fill="#0E7C5A" />
+      <rect x="102" y="172" width="268" height="1" fill="#eceef3" />
+      <rect x="102" y="184" width="72" height="7" rx="1" fill="#d6dbe6" />
+      <rect x="184" y="184" width="66" height="7" rx="1" fill="#d6dbe6" />
+      <rect x="286" y="184" width="34" height="7" rx="1" fill="#B45309" />
+      <rect x="102" y="202" width="268" height="1" fill="#eceef3" />
+      <rect x="102" y="214" width="54" height="7" rx="1" fill="#d6dbe6" />
+      <rect x="184" y="214" width="88" height="7" rx="1" fill="#d6dbe6" />
+      <rect x="286" y="214" width="34" height="7" rx="1" fill="#0E7C5A" />
+    </svg>
+    <span
+      class="pointer-events-none absolute bottom-2 left-2 rounded-[3px] border border-line bg-white px-1.5 py-0.5
+             font-mono text-[0.63rem] tracking-wide text-ink-3"
+    >public{{ current().src }}</span>
+  </div>
+</ng-template>

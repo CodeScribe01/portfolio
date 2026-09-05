@@ -1,0 +1,45 @@
+:host {
+  display: block;
+  min-height: 100vh;
+}
+
+.skip-link {
+  position: absolute;
+  left: -9999px;
+  top: 0;
+  z-index: 200;
+  background: #0d0f16;
+  color: #ffffff;
+  padding: 0.75rem 1.25rem;
+  border-radius: 0 0 8px 0;
+  font-size: 0.9rem;
+  font-weight: 600;
+
+  &:focus {
+    left: 0;
+  }
+}
+
+/* cross-page fade on navigation */
+@media (prefers-reduced-motion: no-preference) {
+  ::view-transition-old(root) {
+    animation: vt-out 0.18s cubic-bezier(0.2, 0.8, 0.2, 1) both;
+  }
+
+  ::view-transition-new(root) {
+    animation: vt-in 0.32s cubic-bezier(0.2, 0.8, 0.2, 1) both;
+  }
+}
+
+@keyframes vt-out {
+  to {
+    opacity: 0;
+  }
+}
+
+@keyframes vt-in {
+  from {
+    opacity: 0;
+    transform: translateY(8px);
+  }
+}

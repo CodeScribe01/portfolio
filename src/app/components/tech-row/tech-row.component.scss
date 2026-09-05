@@ -1,0 +1,41 @@
+:host {
+  display: block;
+}
+
+.row {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.6rem;
+  list-style: none;
+  margin: 0;
+  padding: 0;
+}
+
+.item {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.55rem;
+  border: 1px solid #dfe2ea;
+  border-radius: 5px;
+  background: #ffffff;
+  padding: 0.55rem 0.95rem;
+  font-size: 0.92rem;
+  font-weight: 600;
+  color: #12141a;
+}
+
+.item svg,
+.item .mark {
+  color: #172e6e;
+  flex: none;
+}
+
+.item .mark {
+  display: inline-flex;
+  justify-content: center;
+  width: 20px;
+  font-family: 'Source Code Pro', ui-monospace, monospace;
+  font-size: 0.86rem;
+  font-weight: 700;
+  line-height: 1;
+}

@@ -1,0 +1,23 @@
+<section class="section section-alt">
+  <div class="shell">
+    <div class="mb-7" appReveal>
+      <span class="eyebrow">Stack</span>
+      <h2 class="h-section">What I build with.</h2>
+    </div>
+
+    <ul class="row" appReveal [delay]="80">
+      @for (item of tech; track item.name) {
+        <li class="item">
+          @if (item.path) {
+            <svg viewBox="0 0 24 24" width="20" height="20" aria-hidden="true">
+              <path [attr.d]="item.path" fill="currentColor" />
+            </svg>
+          } @else {
+            <span class="mark" aria-hidden="true">C#</span>
+          }
+          {{ item.name }}
+        </li>
+      }
+    </ul>
+  </div>
+</section>

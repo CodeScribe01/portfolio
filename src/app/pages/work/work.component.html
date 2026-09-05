@@ -1,0 +1,38 @@
+<section class="section pb-0">
+  <div class="shell">
+    <span class="eyebrow" appReveal>Work</span>
+    <h1 class="mt-4 max-w-[18ch] text-d-1" appReveal [delay]="60">Six systems, four in production.</h1>
+    <p class="mt-6 max-w-[58ch] text-[clamp(1.02rem,1.6vw,1.14rem)] leading-relaxed text-ink-2" appReveal [delay]="120">
+      Four of these are client work at DBLB Tech — a service-desk and AMC platform I led development
+      on, a multi-tenant POS/ERP, the integration between them, and a .NET 10 migration of a live
+      warehouse system. The other two I built on my own time.
+    </p>
+
+    <div class="mt-9 flex flex-wrap gap-2" role="group" aria-label="Filter projects" appReveal [delay]="180">
+      @for (filter of filters; track filter.key) {
+        <button
+          type="button"
+          class="filter-chip"
+          [class.is-active]="active() === filter.key"
+          [attr.aria-pressed]="active() === filter.key"
+          (click)="select(filter.key)"
+        >
+          {{ filter.label }}
+          <span class="count">{{ counts[filter.key] }}</span>
+        </button>
+      }
+    </div>
+  </div>
+</section>
+
+<section class="section">
+  <div class="shell flex flex-col gap-[clamp(1rem,2.5vw,1.5rem)]">
+    @for (project of projects(); track project.slug) {
+      <app-project-card [project]="project" [detailed]="true" appReveal />
+    } @empty {
+      <p class="text-ink-3">Nothing here yet.</p>
+    }
+  </div>
+</section>
+
+<app-cta-panel />

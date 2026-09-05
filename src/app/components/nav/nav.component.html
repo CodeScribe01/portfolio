@@ -1,0 +1,68 @@
+<div
+  class="fixed left-0 top-0 z-[130] h-[3px] bg-acc transition-[width] duration-100"
+  [style.width.%]="progress()"
+></div>
+
+<header
+  class="border-b bg-bg transition-colors duration-200 ease-smooth"
+  [class.border-transparent]="!stuck()"
+  [class.border-line]="stuck()"
+>
+  <div class="shell flex h-[68px] items-center justify-between gap-5">
+    <a routerLink="/" class="group inline-flex items-center gap-2.5">
+      <span
+        class="flex h-8 w-8 shrink-0 items-center justify-center rounded-[4px] bg-navy font-mono
+               text-[0.78rem] font-semibold tracking-tight text-white"
+        aria-hidden="true"
+      >NB</span>
+      <span class="font-serif text-[1.05rem] font-bold tracking-tight">{{ profile.name }}</span>
+    </a>
+
+    <nav class="hidden items-center gap-[clamp(0.9rem,2.4vw,1.9rem)] text-[0.94rem] md:flex">
+      @for (link of links; track link.path) {
+        <a
+          class="nav-link relative py-1 font-medium text-ink-2 transition-colors"
+          [routerLink]="link.path"
+          routerLinkActive="is-active"
+        >{{ link.label }}</a>
+      }
+      <a
+        class="rounded-md border border-navy bg-navy px-4 py-2 text-[0.88rem] font-semibold text-white
+               transition-colors duration-200 hover:border-navy-deep hover:bg-navy-deep"
+        [href]="profile.cv"
+        target="_blank"
+        rel="noopener"
+      >Résumé</a>
+    </nav>
+
+    <button
+      type="button"
+      class="flex h-10 w-10 items-center justify-center rounded-md border border-line-strong bg-surface md:hidden"
+      [attr.aria-expanded]="menuOpen()"
+      aria-controls="mobile-menu"
+      [attr.aria-label]="menuOpen() ? 'Close menu' : 'Open menu'"
+      (click)="toggleMenu()"
+    >
+      <span class="burger" [class.is-open]="menuOpen()" aria-hidden="true">
+        <span></span><span></span>
+      </span>
+    </button>
+  </div>
+
+  @if (menuOpen()) {
+    <nav id="mobile-menu" class="border-t border-line bg-bg md:hidden">
+      <div class="shell flex flex-col py-2">
+        @for (link of links; track link.path) {
+          <a
+            class="border-b border-line-soft py-3.5 text-[1rem] font-medium text-ink-2"
+            [routerLink]="link.path"
+            routerLinkActive="!text-navy"
+          >{{ link.label }}</a>
+        }
+        <a class="py-3.5 text-[1rem] font-semibold text-navy" [href]="profile.cv" target="_blank" rel="noopener">
+          Résumé ↓
+        </a>
+      </div>
+    </nav>
+  }
+</header>
