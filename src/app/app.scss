@@ -43,3 +43,10 @@
     transform: translateY(8px);
   }
 }
+
+/* room for the fixed bottom tab bar on phones */
+@media (max-width: 767.98px) {
+  :host {
+    padding-bottom: calc(60px + env(safe-area-inset-bottom));
+  }
+}

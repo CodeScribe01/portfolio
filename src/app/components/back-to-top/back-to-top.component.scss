@@ -38,6 +38,12 @@
   }
 }
 
+@media (max-width: 767.98px) {
+  .to-top {
+    bottom: calc(60px + 0.9rem + env(safe-area-inset-bottom));
+  }
+}
+
 @media (prefers-reduced-motion: reduce) {
   .to-top {
     transition: none;

@@ -7,7 +7,7 @@
   z-index: 50;
 }
 
-/* solid underline, wipes in from the left */
+/* ---------- desktop links: solid underline wipes in from the left ---------- */
 .nav-link::after {
   content: '';
   position: absolute;
@@ -36,46 +36,69 @@
   font-weight: 600;
 }
 
-/* hamburger → close */
-.burger {
+/* ---------- mobile bottom bar ---------- */
+.tabbar {
+  position: fixed;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  z-index: 60;
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  background: #ffffff;
+  border-top: 1px solid #dfe2ea;
+  /* clear the iPhone home indicator */
+  padding-bottom: env(safe-area-inset-bottom);
+}
+
+/* component styles outrank Tailwind's md:hidden, so hide it here instead */
+@media (min-width: 768px) {
+  .tabbar {
+    display: none;
+  }
+}
+
+.tab {
   position: relative;
-  display: block;
-  width: 17px;
-  height: 11px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 3px;
+  height: 60px;
+  font-size: 0.7rem;
+  font-weight: 600;
+  letter-spacing: 0.01em;
+  color: #6a7180;
+  transition: color 0.15s;
 
-  span {
+  /* active marker along the top edge */
+  &::before {
+    content: '';
     position: absolute;
-    left: 0;
-    height: 2px;
-    width: 100%;
-    background: #12141a;
-    transition:
-      transform 0.3s cubic-bezier(0.2, 0.8, 0.2, 1),
-      top 0.2s ease;
-  }
-
-  span:first-child {
     top: 0;
+    left: 28%;
+    right: 28%;
+    height: 3px;
+    border-radius: 0 0 3px 3px;
+    background: #172e6e;
+    transform: scaleX(0);
+    transition: transform 0.2s cubic-bezier(0.2, 0.8, 0.2, 1);
   }
 
-  span:last-child {
-    top: 9px;
+  &.is-active {
+    color: #172e6e;
   }
 
-  &.is-open span:first-child {
-    top: 4.5px;
-    transform: rotate(45deg);
-  }
-
-  &.is-open span:last-child {
-    top: 4.5px;
-    transform: rotate(-45deg);
+  &.is-active::before {
+    transform: scaleX(1);
   }
 }
 
 @media (prefers-reduced-motion: reduce) {
   .nav-link::after,
-  .burger span {
+  .tab,
+  .tab::before {
     transition: none;
   }
 }
