@@ -67,8 +67,8 @@ export const PROJECTS: Project[] = [
       { label: 'AMC billed', done: true },
     ],
     shots: [
-      { src: 'work/ticketdesk/ticket-view.png', caption: 'Ticket Index Detailed View with comprehensive ticket details, status controls, actions, activity tabs, customer information, and resolution management options.' },
-      { src: 'work/ticketdesk/dashboard.png', caption: 'Admin dashboard' },
+      { src: 'work/ticketdesk/ticket-view.png', caption: 'Ticket Index Detailed View with ticket details, status controls, actions, activity tabs, customer information, and resolution management options.' },
+      { src: 'work/ticketdesk/dashboard.png', caption: 'Admin dashboard with all the actions and widget controls' },
       { src: 'work/ticketdesk/amc.png', caption: 'AMC contract lifecycle and scheduling' },
       { src: 'work/ticketdesk/admin-hub.png', caption: 'Admin hub' },
       { src: 'work/ticketdesk/ticket-queue.png', caption: 'Ticket queue with live SLA status' },

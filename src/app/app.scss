@@ -20,30 +20,6 @@
   }
 }
 
-/* cross-page fade on navigation */
-@media (prefers-reduced-motion: no-preference) {
-  ::view-transition-old(root) {
-    animation: vt-out 0.18s cubic-bezier(0.2, 0.8, 0.2, 1) both;
-  }
-
-  ::view-transition-new(root) {
-    animation: vt-in 0.32s cubic-bezier(0.2, 0.8, 0.2, 1) both;
-  }
-}
-
-@keyframes vt-out {
-  to {
-    opacity: 0;
-  }
-}
-
-@keyframes vt-in {
-  from {
-    opacity: 0;
-    transform: translateY(8px);
-  }
-}
-
 /* room for the fixed bottom tab bar on phones */
 @media (max-width: 767.98px) {
   :host {
